@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title></title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+<link href="resources/icons/favicon.ico" rel="shortcut icon" type="image/ico"/>
+<link href="resources/icons/favicon.ico" rel="icon" type="image/ico"/>
+<!--
+			To correctly reference your Map Tour in search engine:
+			 - create and fill out extensively an ArcGIS.com item that link to your final application
+			 - edit the following four tags as well as the upper title tag on line 4
+			 - see https://developerscorner.storymaps.arcgis.com/grow-your-story-maps-audience-with-open-graph-tags-b7639cb65d5c
+		-->
+<meta content="This story map was created with the Esri Map Tour application in ArcGIS Online." name="description"/>
+<!-- Social sharing -->
+<meta content="article" property="og:type">
+<meta content="Story Map Tour" property="og:title">
+<meta content="This story map was created with the Story Map Tour application in ArcGIS Online." property="og:description">
+<meta content="http://www.arcgis.com/apps/MapTour/resources/icons/esri-globe.png" property="og:image">
+<!--
+			This template is released under the Apache License V2.0 by Esri http://www.esri.com/
+			Checkout the project repository on GitHub to access source code, latest revision, developer documentation, FAQ and tips
+			https://github.com/Esri/map-tour-storytelling-template-js
+		-->
+<script type="text/javascript">
+		//----------------------------------------------------
+		//     Template configuration (ignored on Portal)
+		//----------------------------------------------------
+		configOptions = {
+			// Enter either a web map ID or a web application ID
+			// - Using a Map Tour application ID created through the interactive builder in ArcGIS.com allow to reuse
+			//   the settings like the header configuration without having to edit any configuration here
+			// - Web map and application can be dynamically specified through url parameters (webmap and appid)
+			//   if the authorizedOwners property is specified (see below)
+			// - If an application id is specified, the webmap configuration isn't used
+			webmap: "",
+			appid: "",
+			// Optional list of authorized application or web map owners
+			// Has to be specified when using appid or webmap url parameters (e.g. ["user1"], ["user1", "user2"])
+			// To authorize all users you can use ["*"]
+			authorizedOwners: [""],
+			// Optionally to secure Map Tour's access, use an OAuth application ID (example: 6gyOg377fLUhUk6f)
+			// User will need to sign-in to access the viewer even if your application is public
+			oAuthAppId: "",
+			// Select the application layout between "three-panel", "integrated", or "side-panel"
+			layout: "side-panel",
+			// The application header title, if no title is specified, the webmap's title is used
+			title: "",
+			// The application header subtitle, if not specified the ArcGIS.com web map's summary is used
+			subtitle: "",
+			// Optionally force a web map layer to be used as the tour points data source (can be overridden through URL)
+			// Otherwise the upper visible point layer is used (excluding map notes)
+			sourceLayerTitle: "",
+			// Use the first data record as an introduction instead of a point (can be overridden through URL)
+			firstRecordAsIntro: true,
+			// Optional zoom level to be applied for the story points following introduction (can be overridden through URL) (e.g: 0 to 16 for Gray Canvas, 0 to 19 for Street Map, -1 to disable)
+			zoomLevel: -1
+		};
+			// Optionally sharing and proxy URLs can be configured in app/maptour-config.js. This is only required
+			//  when the webmap is not hosted on ArcGIS Online or a Portal for ArcGIS instance and the template isn't deployed as /home/MapTour/ or /apps/MapTour/.
+			//  If the template is deployed on a web server that is not a Portal, do NOT use /apps/ or /home/ in the URL.
+			// Optionally Bing Maps key, Geometry and Geocode service's URLs can be configured in app/maptour-config.js. This is only required
+			//  if the Organization or Portal for ArcGIS instance default configuration has to be overwritten.
+	</script>
+<script type="text/javascript">
+		var version = '2.18.0';
+		var isProduction = true;
+		// IE 9 and below are not compatible with script async attribute.
+		var canUseAsyncAttr = true;
+
+		var ua = window.navigator.userAgent;
+		var msie = ua.indexOf("MSIE ");
+		if (msie > 0) {
+			var version = parseFloat(navigator.appVersion.split("MSIE")[1]);
+			if (version <= 9)
+				canUseAsyncAttr = false;
+		}
+
+
+		function loadJS(url, isExternal) {
+			if (isExternal)
+				url = document.location.protocol == 'file:' ? 'http:' + url : url;
+			else
+				url += '?v=' + version + (!isProduction ? '&_=' + new Date().getTime() : '');
+
+			var ref = window.document.getElementsByTagName('script')[0];
+			var script = window.document.createElement('script');
+			script.src = url;
+			if (canUseAsyncAttr)
+				script.async = false;
+			ref.parentNode.insertBefore(script, ref);
+		}
+
+		function loadCSS(url, isExternal) {
+			if (isExternal)
+				url = document.location.protocol == 'file:' ? 'http:' + url : url;
+			else
+				url += '?v=' + version + (!isProduction ? '&_=' + new Date().getTime() : '');
+
+			var el = document.createElement("link");
+			el.setAttribute("rel", "stylesheet");
+			el.setAttribute("type", "text/css");
+			el.setAttribute("href", url);
+			document.getElementsByTagName("head")[0].appendChild(el);
+		}
+
+		loadCSS("https://js.arcgis.com/3.32/esri/css/esri.css", true);
+		loadCSS("https://js.arcgis.com/3.32/dijit/themes/claro/claro.css", true);
+
+		if (isProduction) {
+			loadCSS("app/maptour-min.css");
+			loadCSS("resources/icons/font-awesome-4.7.0/css/font-awesome.min.css");
+		}
+		else {
+			loadCSS("lib/bootstrap/css/bootstrap.min.css");
+			loadCSS("lib/spectrum/spectrum.css");
+			loadCSS("lib/colorbox/colorbox.css");
+			loadCSS("lib/bootstrap-slider/css/slider.css");
+
+			loadCSS("app/storymaps/ui/crossfader/CrossFader.css");
+			loadCSS("app/storymaps/ui/multiTips/MultiTips.css");
+			loadCSS("app/storymaps/ui/inlineFieldEdit/InlineFieldEdit.css");
+			loadCSS("app/storymaps/ui/loadingIndicator/LoadingIndicator.css");
+
+			loadCSS("app/storymaps/core/Core.css");
+			loadCSS("app/storymaps/maptour/core/MainView.css");
+			loadCSS("app/storymaps/ui/header/Header.css");
+			loadCSS("app/storymaps/ui/mapCommand/MapCommand.css");
+			loadCSS("app/storymaps/maptour/ui/desktop/Carousel.css");
+			loadCSS("app/storymaps/maptour/ui/desktop/PicturePanel.css");
+			loadCSS("app/storymaps/ui/autoplay/Autoplay.css");
+
+			loadCSS("app/storymaps/builder/Builder.css");
+			loadCSS("app/storymaps/builder/BuilderPanel.css");
+			loadCSS("app/storymaps/builder/SaveErrorPopupSocial.css");
+
+			loadCSS("app/storymaps/builder/SettingsPopup.css");
+			loadCSS("app/storymaps/maptour/builder/SettingsPopupTabLayout.css");
+			loadCSS("app/storymaps/builder/SettingsPopupTabColors.css");
+			loadCSS("app/storymaps/builder/SettingsPopupTabHeader.css");
+			loadCSS("app/storymaps/maptour/builder/SettingsPopupTabFields.css");
+			loadCSS("app/storymaps/builder/SettingsPopupTabExtent.css");
+			loadCSS("app/storymaps/maptour/builder/SettingsPopupTabZoom.css");
+
+			loadCSS("app/storymaps/maptour/builder/InitPopup.css");
+			loadCSS("app/storymaps/maptour/builder/InitPopupViewHome.css");
+			loadCSS("app/storymaps/maptour/builder/InitPopupViewHostedFSCreation.css");
+			loadCSS("app/storymaps/maptour/builder/InitPopupViewAdvanced.css");
+			loadCSS("app/storymaps/maptour/builder/ImportPopupViewHome.css");
+
+			loadCSS("app/storymaps/maptour/builder/PopupViewCSV.css");
+			loadCSS("app/storymaps/maptour/builder/PopupViewFlickr.css");
+			loadCSS("app/storymaps/maptour/builder/PopupViewYoutube.css");
+			loadCSS("app/storymaps/maptour/builder/PopupViewGeoTag.css");
+
+			loadCSS("app/storymaps/maptour/builder/BuilderView.css");
+			loadCSS("app/storymaps/maptour/builder/OrganizePopup.css");
+			loadCSS("app/storymaps/maptour/builder/AddPopup.css");
+			loadCSS("app/storymaps/maptour/builder/HelpPopup.css");
+			loadCSS("app/storymaps/maptour/builder/SharePopup.css");
+
+			loadCSS("app/storymaps/maptour/ui/mobile/Common.css");
+			loadCSS("app/storymaps/maptour/ui/mobile/Carousel.css");
+			loadCSS("app/storymaps/maptour/ui/mobile/IntroView.css");
+			loadCSS("app/storymaps/maptour/ui/mobile/ListView.css");
+			loadCSS("app/storymaps/maptour/ui/mobile/InfoView.css");
+			loadCSS("app/storymaps/maptour/ui/Responsive.css");
+
+			loadCSS("resources/icons/font-awesome-4.7.0/css/font-awesome.min.css");
+		}
+
+		var dojoConfig = {
+			parseOnLoad: true,
+			isDebug: false,
+			useDeferredInstrumentation: true,
+			//cacheBust: ! isProduction,
+			packages: [
+				{
+					name: 'storymaps',
+					location: location.pathname.replace(/\/[^/]+$/, '/') + 'app/storymaps'
+				}
+			]
+		};
+
+		if (location.search.match(/locale=([\w\-]+)/)) {
+			dojoConfig.locale = RegExp.$1;
+		}
+	</script>
+<!--[if IE 7]>
+			<link rel="stylesheet" href="resources/font/sharing/storymaps-icons-ie7.css">
+		<![endif]-->
+</meta></meta></meta></meta></head>
+<body class="claro">
+<style>
+		/* CUSTOM CSS RULES */
+	</style>
+<div id="side-panel-builder">
+<button class="builder-save bldr-btn" id="panels-builder-save" role="button">
+<i class="fa-custom-x fa fa-floppy-o"></i>
+</button>
+<button class="builder-settings bldr-btn" id="panels-builder-settings" role="button">
+<i class="fa-custom-x fa fa-cog"></i>
+</button>
+<button class="builder-share bldr-btn btn" id="panels-builder-share" role="button">
+<span class="fa-stack">
+<i class="fa-custom-x fa fa-share"></i>
+<i class="fa fa-stack-1x fa-lock share-level"></i>
+</span>
+</button>
+<button class="builder-preview bldr-btn" id="panels-builder-preview" role="button">
+<i class="fa-custom-x fa fa-eye"></i>
+</button>
+<hr/>
+<button class="bldr-btn" id="addPopupButton2" role="button">
+<span class="fa-stack">
+<i class="fa fa-stack-2x fa-plus"></i>
+</span>
+</button>
+<button class="bldr-btn btn" id="importPopupButton2" role="button">
+<span class="fa-stack">
+<i class="fa fa-stack-2x fa-plus"></i>
+<i class="fa fa-stack-1x fa-map-marker"></i>
+<i class="fa fa-stack-1x fa-map-marker map-marker2"></i>
+</span>
+</button>
+<button class="bldr-btn" id="organizeSlidesButton2" role="button">
+<span class="fa-lg">
+<i class="fa-custom-x fa fa-exchange"></i>
+</span>
+</button>
+<button class="builder-help bldr-btn" id="panels-builder-help" role="button">
+<i class="fa fa-question-circle"></i>
+</button>
+</div>
+<div id="header">
+<!-- Mobile header -->
+<div class="firstDisplay" id="headerMobile">
+<div class="scroll-layout-banner">
+<a class="mobile-scroll-logo-link" href="" target="_blank">
+<img alt="" class="mobile-scroll-logo" src=""/>
+</a>
+<a class="mobile-scroll-story-tag-link" href="" target="_blank"></a>
+</div>
+<div class="banner">
+<h1 class="title"></h1>
+<h2 class="subtitle"></h2>
+<p id="closeHeaderMobile"></p>
+</div>
+<h3 class="navBar">
+<span class="leftLink" data-viewid="list" id="listViewLink"></span>
+<span class="current" data-viewid="map" id="mapViewLink"></span>
+<span class="rightLink" data-viewid="info" id="infoViewLink"></span>
+</h3>
+</div>
+<div id="openHeaderMobile"></div>
+<!-- Desktop header -->
+<div id="headerDesktop">
+<div class="rightArea">
+<div class="switchBuilder btn btn-xs btn-primary" role="button" tabindex="-1" type="button">
+<span class="fa fa-cog" style="outline: none;"></span>
+<span class="editLabel"></span>
+<span aria-hidden="true" class="switch-builder-close">×</span>
+</div>
+<div class="social">
+<span class="msLink">
+<a href="http://storymaps.arcgis.com" tabindex="-1" target="_blank"></a>
+</span>
+<i class="shareIcon share_facebook icon-facebook-squared"></i>
+<i class="icon-twitter shareIcon share_twitter"></i>
+<i class="icon-link shareIcon share_bitly"></i>
+</div>
+<div class="logo">
+<a target="_blank">
+<img alt="Map Tour logo" class="headerLogoImg">
+</img></a>
+</div>
+</div>
+<div class="textArea">
+<h1 class="title" tabindex="0"></h1>
+<h2 class="subtitle" tabindex="0"></h2>
+</div>
+<!-- Builder top panel -->
+<div id="builderPanel">
+<h4></h4>
+<div>
+<button class="btn builder-cmd builder-save" type="button"></button>
+<button class="btn builder-cmd builder-share" type="button"></button>
+<button class="btn builder-cmd builder-settings" type="button"></button>
+<button class="btn builder-cmd builder-help" type="button"></button>
+</div>
+<div id="status-bar">
+<span id="save-counter"></span>
+<span id="sharing-status"></span>
+</div>
+</div>
+</div>
+</div>
+<div class="mobileView" id="contentPanel">
+<div id="splashPanel">
+<div id="splashText">
+<div id="splashTitle"></div>
+<div id="splashSubtitle"></div>
+</div>
+<button class="reset-btn icon-down-open-big cover-start start-button" type="button"></button>
+</div>
+<div id="leftPanel"></div>
+<!-- Map panel -->
+<div id="mapPanel">
+<div id="mainMap">
+<div id="hoverInfo"></div>
+</div>
+<!-- Builder switch basemap -->
+<div id="basemapChooser">
+<div data-dojo-props="closable:false, open:false" data-dojo-type="dijit/TitlePane">
+<div data-dojo-type="dijit/layout/ContentPane" style="width:380px; height:280px; overflow:auto;">
+<div id="basemapGallery"></div> <!-- icon th-large -->
+</div>
+</div>
+</div>
+<div class="mapLocationError">
+<div class="mapLocationMsg"></div>
+</div>
+<div class="autoplay" id="autoplay">
+<div class="autoplay-container">
+<div class="backdrop"></div>
+<div class="btn-play-container status-pause">
+<span class="btn-play autoplay-icon-play"></span>
+</div>
+<div class="slider-container">
+<input class="span2" type="text" value=""/>
+</div>
+</div>
+</div>
+</div>
+<!-- Picture panel -->
+<div id="picturePanel">
+<img alt="Previous point" class="arrow disabled" id="arrowPrev"/>
+<div id="cfader"></div>
+<div id="pictureLoadingIndicator" style="visibility:hidden;"></div>
+<div class="builderImageTarget">
+<div class="pencilIconDiv">
+<i class="fa fa-pencil"></i>
+</div>
+<form>
+<input accept="image/jpeg" class="side-panel-upload" title=" " type="file"/>
+</form>
+</div>
+<img alt="Next point" class="arrow disabled" id="arrowNext"/>
+<a class="modern-layout-control left click-btn"></a>
+<a class="modern-layout-control right click-btn"></a>
+<!-- Builder picture panel buttons -->
+<div class="editPictureButtons">
+<div>
+<span class="attributesWay">
+<form>
+<button class="btn" type="button"></button>
+<button class="btn" type="button"></button>
+</form>
+</span>
+<span class="modernBrowserWay">
+<form>
+<input accept="image/jpeg" class="btn-picture" type="file"/>
+<input accept="image/jpeg" class="btn-thumbnail" type="file"/>
+</form>
+</span>
+<span class="oldBrowserWay">
+<form id="ppOldBrowserWayPicForm">
+<input accept="image/jpeg" class="btn-picture" name="attachment" type="file"/>
+</form>
+<form id="ppOldBrowserWayThumbForm">
+<input accept="image/jpeg" class="btn-thumbnail" name="attachment" type="file"/>
+</form>
+<button class="btn-upload btn" disabled="true" type="button"></button>
+</span>
+</div>
+</div>
+</div>
+<!-- Builder bottom panel -->
+<div id="builderPanel3">
+<button class="btn" id="introRecordButton" type="button"></button>
+</div>
+<!-- Builder bottom panel -->
+<div id="builderPanel2">
+<button class="btn" id="addPopupButton" type="button"></button>
+<button class="btn" id="organizeSlidesButton" type="button"></button>
+<button class="btn" id="importPopupButton" type="button"></button>
+</div>
+<!-- Container for story points in mobile-layout-scroll -->
+<div id="mobile-scroll-story-content"></div>
+</div>
+<!-- Mobile views -->
+<div class="mobileView" id="listPanel">
+<div class="listWrapper">
+<div class="listScroller" id="listPanelScroller"></div>
+</div>
+</div>
+<div class="mobileView" id="infoPanel">
+<div id="infoCarousel"></div>
+<div class="embed-btn-container embed-btn-left disabled">
+<div class="embed-btn"></div>
+</div>
+<div class="embed-btn-container embed-btn-right">
+<div class="embed-btn"></div>
+</div>
+</div>
+<div class="mobileView" id="introPanel"></div>
+<!-- Footer -->
+<div id="footer">
+<!-- Desktop footer -->
+<div id="footerDesktop">
+<div class="carousel">
+<img alt="Navigate carousel backward" aria-hidden="true" class="arrowLeft"/>
+<div class="carouselWrapper">
+<div class="carouselScroller">
+<ul aria-hidden="true"></ul>
+</div>
+</div>
+<img alt="Navigate carousel forward" aria-hidden="true" class="arrowRight"/>
+</div>
+</div>
+<!-- Mobile footer -->
+<div id="footerMobile">
+<div class="builderMobileContainer">
+<span class="builderMobile">
+<form>
+<input accept="image/*" capture="camera" class="btn-info btn-medium" type="file"/>
+</form>
+</span>
+</div>
+<div class="embed-btn-container embed-btn-left disabled">
+<div class="embed-btn"></div>
+</div>
+<div class="carousel"></div>
+<div class="embed-btn-container embed-btn-right">
+<div class="embed-btn"></div>
+</div>
+</div>
+</div>
+<!-- Loading indicator -->
+<div id="loadingOverlay"></div>
+<div class="loading-dots is-active loadingIndicator" id="loadingIndicator">
+<span></span>
+<span></span>
+<span></span>
+</div>
+<!-- Loading -->
+<style>
+		#loadingOverlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 500;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			background-color: #EFEFEF;
+		}
+
+		.loading-dots {
+			display: none;
+			width: 48px;
+			height: 48px;
+			position: fixed;
+			top: calc(50vh - 24px);
+			left: calc(50% - 24px);
+			z-index: 700;
+		}
+
+		.is-active {
+			display: block;
+		}
+
+		.loading-dots span {
+			display: block;
+			background: #00b9f2;
+			width: 12px;
+			height: 12px;
+			border-radius: 50%;
+			position: absolute;
+			-webkit-transform: translateZ(0) scale(.7);
+			transform: translateZ(0) scale(.7);
+		}
+
+		.loading-dots span:nth-of-type(1) {
+			top: calc(50% - 12.5%);
+			-webkit-animation: jump 1.2s infinite ease-in-out;
+			animation: jump 1.2s infinite ease-in-out;
+		}
+
+		.loading-dots span:nth-of-type(2) {
+			top: calc(50% - 12.5%);
+			left: calc(50% - 12.5%);
+			-webkit-animation: jump 1.2s infinite ease-in-out .25s;
+			animation: jump 1.2s infinite ease-in-out .25s;
+		}
+
+		.loading-dots span:nth-of-type(3) {
+			top: calc(50% - 12.5%);
+			left: calc(100% - 25%);
+			-webkit-animation: jump 1.2s infinite ease-in-out .5s;
+			animation: jump 1.2s infinite ease-in-out .5s;
+		}
+
+		@-webkit-keyframes jump {
+			0% {
+				background: #00b9f2;
+				-webkit-transform: scale(.7);
+				transform: scale(.7);
+			}
+			65% {
+				background: #007ac2;
+				-webkit-transform: translateY(-125%) scale(1);
+				transform: translateY(-125%) scale(1);
+			}
+			100% {
+				background: #00b9f2;
+				-webkit-transform: scale(.7);
+				transform: scale(.7);
+			}
+		}
+
+		@keyframes jump {
+			0% {
+				background: #00b9f2;
+				-webkit-transform: scale(.7);
+				transform: scale(.7);
+			}
+			65% {
+				background: #007ac2;
+				-webkit-transform: translateY(-125%) scale(1);
+				transform: translateY(-125%) scale(1);
+			}
+			100% {
+				background: #00b9f2;
+				-webkit-transform: scale(.7);
+				transform: scale(.7);
+			}
+		}
+	</style>
+<!-- Organize popup -->
+<div class="modal hide" data-backdrop="static" id="organizePopup" tabindex="-1">
+<div class="modal-header">
+<button aria-hidden="true" class="close" data-dismiss="modal" type="button">×</button>
+<h3></h3>
+</div>
+<div class="modal-body">
+<div class="organizeHeader">
+<span class="buttonBar">
+<button class="btn btnDelete" disabled="true"></button>
+<button class="btn btnHide" disabled="true"></button>
+</span>
+<div class="generalCaption"></div>
+</div>
+<div class="gridContainer">
+<ul class="picturesGrid"></ul>
+</div>
+<div class="organizeFooter">
+<button class="btn"></button>
+<div class="organizeIntro"></div>
+</div>
+</div>
+<div class="modal-footer">
+<button class="btnSave btn btn-primary" data-dismiss="modal"></button>
+<button aria-hidden="true" class="btnClose btn" data-dismiss="modal"></button>
+</div>
+</div>
+<!-- Add popup -->
+<div class="modal hide" data-backdrop="static" id="addPopup" tabindex="-1">
+<div class="modal-header">
+<button aria-hidden="true" class="close" data-dismiss="modal" type="button">×</button>
+<h3></h3>
+</div>
+<div class="modal-tabs">
+<div class="tab"><i class="tab-icon"></i></div>
+<div class="tab"><i class="tab-icon"></i></div>
+<div class="tab"><i class="tab-icon"></i></div>
+</div>
+<div class="modal-body">
+<div class="maxPictureReached"></div>
+<!-- Picture tab for layer with attachments -->
+<div class="addImage tab-content">
+<div class="imageUploadWrapper">
+<form id="addImageUploadFormPicture" onsubmit="return false">
+<input accept="image/jpeg" class="uploadButton clearVal btn-success btn-large" name="attachment" type="file"/>
+<ul class="errorList" style="text-align:center; margin-top: 4px"></ul>
+</form>
+<div class="addNoteVideo"></div>
+</div>
+<div class="leftPanel previewPanel">
+<img alt="" class="imagePreview img-polaroid" id="addImagePreview" src=""/>
+<div class="changePhoto">
+<button></button>
+</div>
+<div class="pictureSize"></div>
+</div>
+<div class="rightPanel previewPanel">
+<p class="imagePreviewName clearHTML"></p>
+<div class="exifData">
+<div class="exifMajor clearHTML"></div>
+<p class="exifMinorHeader settingHeading"></p>
+<div class="exifMinor clearHTML"></div>
+</div>
+<div class="thumbnail">
+<p class="settingHeading"></p>
+<div class="thumbnailFile">
+<canvas height="93px" id="thumbnailFileCanvas" width="140px"></canvas>
+</div>
+<div class="thumbnailForm">
+<div class="fileName cameraSettings" style="margin-bottom: 2px"></div>
+<form id="addImageUploadFormThumbnail">
+<input accept="image/jpeg" class="btn btn-small clearVal" name="attachment" type="file"/>
+</form>
+<ul class="errorList"></ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Picture tab for embedded layer -->
+<div class="addImageAttributes tab-content">
+<form>
+<div>
+<ul class="nav nav-pills" id="addImageAttributesTypeChooser">
+</ul>
+</div>
+<div class="type-container">
+<label></label>
+<input class="tourPointPicUrl clearVal" placeholder="" type="text"/>
+<label></label>
+<input class="tourPointThumbUrl clearVal" placeholder="" type="text"/>
+</div>
+<div class="type-container video">
+<label></label>
+<table>
+<tr class="youtube">
+<td><input checked="" name="addVideoSrc" type="radio" value="youtube"/>YouTube</td>
+<td>
+<input class="clearVal type youtube" type="text"/>
+<a><img/></a>
+<img class="click"/>
+<i class="youtube"></i>
+</td>
+</tr>
+<tr class="vimeo">
+<td><input name="addVideoSrc" type="radio" value="vimeo"/>Vimeo</td>
+<td>
+<input class="clearVal type vimeo" disabled="" type="text"/>
+<a><img/></a>
+<img class="click"/>
+<i class="vimeo"></i>
+</td>
+</tr>
+<tr class="other">
+<td><input name="addVideoSrc" type="radio" value="other"/><span class="other"></span></td>
+<td>
+<input class="clearVal type other" disabled="" type="text"/>
+<a><img/></a>
+</td>
+</tr>
+</table>
+<label></label>
+<input class="tourPointThumbUrl2 clearVal" type="text"/>
+</div>
+</form>
+<ul class="errorList"></ul>
+</div>
+<!-- Information tab -->
+<div class="addText tab-content">
+<div>
+<label></label>
+<input class="tourPointNameField clearVal" placeholder="" spellcheck="true" type="text"/>
+<label></label>
+<textarea class="tourPointDescr clearVal" placeholder="" rows="4" spellcheck="true"></textarea>
+</div>
+<ul class="errorList"></ul>
+</div>
+<!-- Location tab -->
+<div class="addLocation tab-content">
+<ul class="errorList"></ul>
+<div>
+<label></label>
+<span class="pinContainer"></span>
+<span class="locationForm">
+<label></label>
+<input class="latitude clearVal" maxlength="7" pattern="[0-9]*" placeholder="" type="text"/>
+<label></label>
+<input class="longitude clearVal" maxlength="7" pattern="[0-9]*" placeholder="" type="text"/>
+</span>
+</div>
+<div id="locateMap"></div>
+<div id="geocoder"></div>
+</div>
+</div>
+<div class="modal-footer">
+<span class="error"></span>
+<span class="success"></span><img class="addSpinner" src="resources/icons/loader-upload.gif"/>
+<button class="btnSave btn btn-primary"></button>
+<button aria-hidden="true" class="btnClose btn" data-dismiss="modal"></button>
+</div>
+</div>
+<!-- Init popup -->
+<div class="modal hide" data-backdrop="static" id="initPopup">
+<div class="modal-header">
+<h3></h3>
+</div>
+<div class="modal-body">
+<!-- views declared in init-import-views are injected -->
+</div>
+<div class="modal-footer">
+<span class="dataFooterText"></span>
+<button class="btnNext btn btn-primary"></button>
+<button class="btnPrev btn"></button>
+</div>
+</div>
+<!-- Import popup -->
+<div class="modal hide" data-backdrop="static" id="importPopup" tabindex="-1">
+<div class="modal-header">
+<button aria-hidden="true" class="close" data-dismiss="modal" type="button">×</button>
+<h3></h3>
+</div>
+<div class="modal-body">
+<!-- views declared in init-import-views are injected -->
+</div>
+<div class="modal-footer">
+<span class="dataFooterText"></span>
+<button class="btnNext btn btn-primary"></button>
+<button class="btnPrev btn"></button>
+</div>
+</div>
+<div id="init-import-views">
+<!-- Init specific -->
+<div id="initPopupViewHome">
+<div class="header"></div>
+<div class="sideContainer">
+<div class="sideTitle sideTitle1"></div>
+<table class="leftTable">
+<tr>
+<td class="btn-select-flickr">
+<a><img style="width: 50px"/></a>
+</td>
+<td class="btn-select-youtube">
+<a><img style="width: 50px"/></a>
+</td>
+</tr>
+<tr style="height: 15px">
+</tr>
+<tr>
+<td class="btn-select-advanced">
+<a><img style="width: 44px"/></a>
+</td>
+</tr>
+</table>
+</div>
+<div class="sideContainer">
+<div class="sideTitle sideTitle2"></div>
+<table>
+<tr>
+<td class="btn-select-hostedFS" style="vertical-align: middle; height: 125px;">
+<img style="width: 72px"/>
+<div class="notAvailable hostedFsNote"></div>
+</td>
+</tr>
+</table>
+</div>
+<div class="footer"></div>
+<div class="popover-init"></div>
+</div>
+<div id="initPopupViewHostedFSCreation">
+<p class="dataExplain"></p>
+<form class="form-horizontal">
+<div class="control-group">
+<label class="control-label dataNameLbl" for="dataNameInput"></label>
+<div class="controls">
+<input id="dataNameInput" maxlength="80" placeholder="" type="text"/>
+</div>
+</div>
+<div class="control-group">
+<label class="control-label dataFolderListLbl" for="dataFolderListInput"></label>
+<div class="controls">
+<div class="btn-group">
+<select id="dataFolderListInput"></select>
+</div>
+</div>
+</div>
+</form>
+<ul class="dataError"></ul>
+</div>
+<div id="initPopupViewAdvanced">
+<div class="header"></div>
+<div class="options">
+<div class="options-row">
+<button class="btn btn-adv btn-select-scratch"></button>
+</div>
+<div class="options-row" style="margin-top: 20px;">
+<button class="btn btn-adv btn-select-csv"></button>
+<div class="csv-note"></div>
+</div>
+</div>
+</div>
+<!-- Import specific -->
+<div id="importPopupViewHome">
+<h3 class="header"></h3>
+<table>
+<tr>
+<td class="btn-select-flickr">
+<img style="width: 50px"/>
+</td>
+<td class="btn-select-youtube">
+<img style="width: 50px"/>
+</td>
+<td class="btn-select-csv">
+<img style="width: 50px"/>
+</td>
+</tr>
+</table>
+<div class="footer"></div>
+<div class="popover-import"></div>
+</div>
+<!-- Common -->
+<div class="popupViewCSV" id="popupViewCSV">
+<div class="popupViewCSVView popupViewCSV-home">
+<div class="csvUploadWrapper">
+<form onsubmit="return false">
+<input accept=".csv" class="uploadButton btn-success btn-large" type="file"/>
+</form>
+</div>
+</div>
+<div class="popupViewCSVView popupViewCSV-result">
+<div class="csvResultHeader"></div>
+<div class="csvResultFields"></div>
+<div class="csvResultMap"></div>
+</div>
+<div class="popupViewCSVView popupViewCSV-error">
+</div>
+</div>
+<div class="popupViewFlickr" id="popupViewFlickr">
+<div class="headerContainer">
+<span class="header"></span>
+<span class="commonHeader"></span>
+</div>
+<input class="selectUserName" type="text" value=""/>
+<button class="btn btn-userLogin"></button>
+<span class="signInMsg"></span>
+<div>
+<div class="selectContainer">
+<div class="control-group">
+<label class="control-label" for="flickrListSet"></label>
+<div class="controls">
+<div class="btn-group">
+<select id="flickrListSet"></select>
+</div>
+</div>
+</div>
+</div>
+<div class="selectContainer">
+<div class="control-group">
+<label class="control-label" for="flickrListTag"></label>
+<div class="controls">
+<div class="btn-group">
+<select id="flickrListTag"></select>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="popupViewYoutube" id="popupViewYoutube">
+<div class="headerContainer">
+<span class="header"></span>
+<span class="commonHeader"></span>
+</div>
+<div class="youtubeContainer">
+<input class="youtubeInput selectUserName" type="text" value=""/>
+<button class="btn youtubeLookup btn-userLookup" disabled="disabled"><i class="icon-search"></i></button>
+<span class="lookingUpMsg lookingUpUserMsg"></span>
+</div>
+<div class="howToFind">
+<a></a>
+</div>
+</div>
+<div class="popupViewGeoTag" id="popupViewGeoTag">
+<div class="header"></div>
+<div class="leftPanel">
+<ul class="nav nav-tabs">
+<li><a></a></li>
+<li><a></a></li>
+</ul>
+<div class="tab-content">
+<div class="tobelocated"></div>
+<div class="located"></div>
+</div>
+</div>
+<div class="mapPanel">
+<div class="geotagMap"></div>
+<div class="clickOrTapInfo"></div>
+</div>
+<div class="waitContainer">
+<div class="wait">Wait</div>
+</div>
+</div>
+</div>
+<!-- Settings popup -->
+<div class="modal hide" data-backdrop="static" id="settingsPopup" tabindex="-1">
+<div class="modal-header">
+<button aria-hidden="true" class="close" data-dismiss="modal" type="button">×</button>
+<h3></h3>
+</div>
+<div class="settingsPopupHeader modal-tabs">
+<div class="tab"></div>
+<div class="tab"></div>
+<div class="tab"></div>
+<div class="tab"></div>
+<div class="tab"></div>
+<div class="tab"></div>
+</div>
+<div class="modal-body">
+<!-- Layout -->
+<div class="tab-content" id="settings-layout">
+<!-- <p></p> -->
+<div class="layout-box">
+<img/>
+<div class="layout-box-title"></div>
+<div class="layoutFooter">
+<button class="btn"></button>
+<div class="selectedLayout"></div>
+</div>
+</div>
+<div class="layout-box">
+<img/>
+<div class="layout-box-title"></div>
+<div class="layoutFooter">
+<button class="btn"></button>
+<div class="selectedLayout"></div>
+</div>
+</div>
+<div class="layout-box">
+<img/>
+<div class="layout-box-title"></div>
+<div class="layoutFooter">
+<button class="btn"></button>
+<div class="selectedLayout"></div>
+</div>
+</div>
+<div class="layoutOption"></div>
+</div>
+<!-- Colors -->
+<div class="tab-content" id="settings-colors">
+<p></p>
+<form class="form-horizontal">
+<div class="control-group" id="colorScheme" style="margin-bottom: 5px">
+<label class="control-label"></label>
+<div class="controls"></div>
+</div>
+</form>
+</div>
+<!-- Header -->
+<div class="tab-content" id="settings-header">
+<p></p>
+<form class="form-horizontal form1">
+<div class="control-group">
+<div class="controls">
+<label class="radio">
+<input checked="" id="optionsRadios0" name="optionsLogo" type="radio" value="esri"/>
+<span class="logoText"></span>
+</label>
+<label class="radio">
+<input id="optionsRadios1" name="optionsLogo" type="radio" value="none"/>
+<span class="logoText"></span>
+</label>
+<label class="radio">
+<input id="optionsRadios2" name="optionsLogo" type="radio" value="custom"/>
+<span class="logoText"></span>
+</label>
+<div class="optionsLogoCustom">
+<input id="logoInput" placeholder="" type="text"/>
+<input id="logoTargetInput" placeholder="" type="text"/>
+</div>
+</div>
+<div id="headerSimulator">
+<img id="imgLogo"/>
+</div>
+</div>
+</form>
+<p></p>
+<form class="form-horizontal form2">
+<div class="socialConfig">
+<label class="checkbox">
+<input class="enableFB" type="checkbox">
+<span>Facebook</span>
+</input></label>
+<label class="checkbox">
+<input class="enableTwitter" type="checkbox">
+<span>Twitter</span>
+</input></label>
+<label class="checkbox">
+<input class="enableBitly" type="checkbox">
+<span class="header-share-label"></span>
+</input></label>
+</div>
+<div>
+<div class="control-group">
+<label class="control-label" for="selectSocialText"></label>
+<div class="controls">
+<input id="selectSocialText" spellcheck="true" type="text">
+</input></div>
+</div>
+<div class="control-group">
+<label class="control-label" for="selectSocialLink"></label>
+<div class="controls">
+<input id="selectSocialLink" type="text">
+</input></div>
+</div>
+</div>
+</form>
+</div>
+<!-- Data Fields -->
+<div class="tab-content" id="settings-fields">
+<div class="error-msg"></div>
+<p></p>
+<form class="form-horizontal">
+<div class="control-group">
+<label class="control-label" for="selectName"></label>
+<div class="controls">
+<select id="selectName"></select>
+</div>
+</div>
+<div class="control-group">
+<label class="control-label" for="selectDescription"></label>
+<div class="controls">
+<select id="selectDescription"></select>
+</div>
+</div>
+<div class="control-group" style="margin-bottom: 5px">
+<label class="control-label" for="selectColor"></label>
+<div class="controls">
+<select id="selectColor"></select>
+</div>
+</div>
+</form>
+<div class="fieldResetContainer">
+<button class="btn fieldReset"></button>
+</div>
+<div class="error-msg2"></div>
+</div>
+<!-- Extent -->
+<div class="tab-content" id="settings-extent">
+<p></p>
+<div class="extentMapControl">
+<button class="btn btn-small" id="extentModify"></button>
+<button class="btn btn-small" id="extentDraw"></button>
+<button class="btn btn-small" id="extentUseMainMap"></button>
+<button class="btn btn-small" id="extentApply"></button>
+</div>
+<div id="extentMap"></div>
+<div class="explain2"></div>
+<div class="dateLineError"></div>
+</div>
+<!-- Zoom level -->
+<div class="tab-content" id="settings-zoom">
+<form class="form-horizontal">
+<p></p>
+<div class="control-group" style="margin-bottom: 5px">
+<label class="control-label" for="listZoomLevels"></label>
+<div class="controls">
+<div class="btn-group">
+<select id="listZoomLevels"></select>
+</div>
+</div>
+</div>
+</form>
+</div>
+</div>
+<div class="modal-footer">
+<span class="error"></span>
+<button class="btnSave btn btn-primary" data-dismiss="modal"></button>
+<button aria-hidden="true" class="btnClose btn" data-dismiss="modal"></button>
+</div>
+</div>
+<!-- Share popup -->
+<div class="modal hide" data-backdrop="static" id="sharePopup" tabindex="-1">
+<div class="modal-header">
+<button aria-hidden="true" class="close" data-dismiss="modal" type="button">×</button>
+<h3></h3>
+</div>
+<div class="modal-body">
+<div class="first-save hide">
+<div class="header"></div>
+<div class="saved-tip"></div>
+</div>
+<div class="share">
+<div class="not-shared hide">
+<div class="header"></div>
+<div class="share-btn">
+<button class="btn btn-sharePublic"></button>
+<button class="btn btn-shareOrga"></button>
+</div>
+<div class="share-warning"></div>
+<div class="footer">
+<a class="btn-preview"></a>
+</div>
+</div>
+<div class="shared-dialog">
+<div class="header"></div>
+<div class="share-link"></div>
+<div class="shared-tip"></div>
+</div>
+</div>
+</div>
+<div class="modal-footer">
+<span class="footer-status success"></span>
+<span class="footer-status error"></span>
+<button aria-hidden="true" class="btnClose btn" data-dismiss="modal"></button>
+</div>
+</div>
+<!-- Help popup -->
+<div class="modal hide" data-backdrop="static" id="helpPopup" tabindex="-1">
+<div class="modal-header">
+<button aria-hidden="true" class="close" data-dismiss="modal" type="button">×</button>
+<h3></h3>
+</div>
+<div class="helpPopupHeader modal-tabs">
+<div class="tab"></div>
+<div class="tab"></div>
+<div class="tab"></div>
+</div>
+<div class="modal-body">
+<div class="tab-content" id="help-tab1"></div>
+<div class="tab-content" id="help-tab2"></div>
+<div class="tab-content" id="help-tab3"></div>
+<div class="tab-content" id="help-tab4"></div>
+<div class="tab-content" id="help-tab5"></div>
+</div>
+<div class="modal-footer">
+<button aria-hidden="true" class="btnClose btn" data-dismiss="modal"></button>
+</div>
+</div>
+<div class="modal hide saveErrorPopupSocial" data-backdrop="static" id="saveErrorPopupSocial" tabindex="-1">
+<div class="modal-header">
+<h3 class="modal-title"></h3>
+</div>
+<div class="modal-body">
+<div class="panel1">
+<span class="panel1lbl"></span>
+<a class="help" data-toggle="tooltip" href="#">
+<img style="vertical-align: -5px;"/>
+</a>
+</div>
+<div class="panel2">
+<div class="panel2lbl"></div>
+<div class="form-group">
+<div class="radio">
+<label>
+<input checked="" name="optErrorSocial" type="radio" value="story"/>
+<span>
+<span class="panel2q1lbl"></span>
+<a class="help" data-toggle="tooltip" href="#">
+<img style="vertical-align: -5px;"/>
+</a>
+</span>
+</label>
+</div>
+<div class="radio">
+<label>
+<input name="optErrorSocial" type="radio" value="item"/>
+<span class="panel2q2lbl"></span>
+</label>
+</div>
+</div>
+</div>
+<div class="panel3"></div>
+</div>
+<div class="modal-footer">
+<div class="stop-asking">
+<div class="checkbox">
+<label class="disabled">
+<input disabled="" type="checkbox" value=""/>
+<span class="panel4lbl"></span>
+</label>
+</div>
+</div>
+<button class="btn btn-primary" type="button"></button>
+</div>
+</div>
+<!-- Browser popup -->
+<div class="modal hide" data-backdrop="static" id="browserPopup" tabindex="-1">
+<div class="modal-header">
+<button aria-hidden="true" class="close" data-dismiss="modal" type="button">×</button>
+<h3></h3>
+</div>
+<div class="modal-body">
+<p class="browserExplain"></p>
+<p class="browserExplain2"></p>
+</div>
+<div class="modal-footer">
+<span class="dataFooterText"></span>
+<button class="btnClose btn btn-primary" data-dismiss="modal"></button>
+</div>
+</div>
+<!-- Fatal error box -->
+<div id="fatalError">
+<table border="0">
+<tr>
+<td id="fatalError-icon" style="width:70px; text-align: center"></td>
+<td>
+<strong class="error-title"></strong>
+<p class="error-msg"></p>
+</td>
+</tr>
+</table>
+</div>
+<script src="https://js.arcgis.com/3.32/init.js"></script>
+<script type="text/javascript">
+		loadJS('app/maptour-config.js');
+
+		function getUrlVar(name) {
+			var vars = [], hash;
+			if (window.location.href.indexOf('?') == -1) return null;
+
+			var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+			for (var i = 0; i < hashes.length; i++) {
+				hash = hashes[i].split('=');
+				hash[0] = hash[0].split('#')[0];
+				vars.push(hash[0]);
+				vars[hash[0]] = (hash[1] == undefined) ? "true" : hash[1];
+			}
+			return vars[name];
+		}
+
+		if (isProduction) {
+			if (getUrlVar('edit') || getUrlVar('fromScratch') || getUrlVar('fromscratch') || getUrlVar('fromGallery'))
+				loadJS('app/maptour-builder-min.js');
+			else
+				loadJS('app/maptour-viewer-min.js');
+			loadJS('app/main-app.js');
+		}
+		else {
+			loadJS('lib/_jquery.1.9.1.min.js');
+			loadJS('lib/bootstrap/js/bootstrap.min.js');
+			loadJS('lib/spin.min.js');
+			loadJS('lib/history.min.js');
+			loadJS('lib/cubiq.iscroll.js');
+			loadJS('lib/cubiq.swipeview.js');
+			loadJS('lib/jquery-ui-1.10.0.custom.min.js');
+			loadJS('lib/jquery.ui.touch-punch.min.js');
+			loadJS('lib/jquery.exif.js');
+			loadJS('lib/jquery.fastClick.js');
+			loadJS('lib/jquery.hammer.min.js');
+			loadJS('lib/megapix-image.js');
+			loadJS('lib/spectrum/spectrum.js');
+			loadJS('lib/bootstrap.file-input.js');
+			loadJS('lib/colorbox/jquery.colorbox-min.js');
+			loadJS('lib/bootstrap-slider/js/bootstrap-slider.js');
+			loadJS('app/main-app.js');
+		}
+	</script>
+<!-- Enable Google Analytics on storymaps.esri.com -->
+<script type="text/javascript">
+		if (window.location.href.toLowerCase().indexOf("storymaps.esri.com") >= 0) {
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-26529417-1']);
+			_gaq.push(['_trackPageview']);
+
+			(function () {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+		}
+	</script>
+</body>
+</html>

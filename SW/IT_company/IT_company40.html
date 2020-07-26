@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="initial-scale=1.0, user-scalable=no" name="viewport"/>
+<meta charset="utf-8"/>
+<meta content="Silicon Valley Map is an interactive map showing the headquarters of various tech companies and start-ups in Silicon Valley and the San Francisco Bay Area." name="description">
+<meta content="YZHqSfhDKob1NKXbAyF16kRdE8qUpyosZKjVOVdxd2I" name="google-site-verification">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"/>
+<title>Silicon Valley Map - a map of tech companies and start-ups in Silicon Valley and San Francisco</title>
+<script src="placemarks.json"></script>
+<style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: 'Roboto', sans-serif;
+      }
+      #map {
+        height: 100%;
+      }
+      @media (min-width: 770px) {
+     	.headerElement {
+     		font-size: 14px;
+     		float: right;
+     		margin-right: 4px;
+     		margin-top: 2px;
+     	}
+      }
+      .header {
+      	background-color: #05426c;
+      	color: white;
+      	padding: 8px 8px 4px 8px;
+      }
+      .icon {
+      	height: 12px;
+      	margin: 0px 4px 0px 4px;
+      }
+    </style>
+<!-- ****** faviconit.com favicons ****** -->
+<link href="/images/favicon/favicon.ico" rel="shortcut icon"/>
+<link href="/images/favicon/favicon.ico" rel="icon" sizes="16x16 32x32 64x64"/>
+<link href="/images/favicon/favicon-192.png" rel="icon" sizes="196x196" type="image/png"/>
+<link href="/images/favicon/favicon-160.png" rel="icon" sizes="160x160" type="image/png"/>
+<link href="/images/favicon/favicon-96.png" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/images/favicon/favicon-64.png" rel="icon" sizes="64x64" type="image/png"/>
+<link href="/images/favicon/favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="/images/favicon/favicon-16.png" rel="icon" sizes="16x16" type="image/png"/>
+<link href="/images/favicon/favicon-57.png" rel="apple-touch-icon"/>
+<link href="/images/favicon/favicon-114.png" rel="apple-touch-icon" sizes="114x114"/>
+<link href="/images/favicon/favicon-72.png" rel="apple-touch-icon" sizes="72x72"/>
+<link href="/images/favicon/favicon-144.png" rel="apple-touch-icon" sizes="144x144"/>
+<link href="/images/favicon/favicon-60.png" rel="apple-touch-icon" sizes="60x60"/>
+<link href="/images/favicon/favicon-120.png" rel="apple-touch-icon" sizes="120x120"/>
+<link href="/images/favicon/favicon-76.png" rel="apple-touch-icon" sizes="76x76"/>
+<link href="/images/favicon/favicon-152.png" rel="apple-touch-icon" sizes="152x152"/>
+<link href="/images/favicon/favicon-180.png" rel="apple-touch-icon" sizes="180x180"/>
+<!-- ****** faviconit.com favicons ****** -->
+</meta></meta></head>
+<body>
+<!-- Facebook Start -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=7257940238";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+	</script>
+<!-- Facebook End -->
+<div class="header">
+<div style="float:left; margin-right: 4px"><img alt="Silicon Valley Map" class="icon" src="images/mapIconWhite.png"/>Silicon Valley Map <a href="#about"><img class="icon" src="images/questionMarkWhite.png"/></a></div>
+<!-- Facebook -->
+<iframe allowtransparency="true" frameborder="0" height="20" scrolling="no" src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2Fsiliconvalleymap.org&amp;layout=button_count&amp;size=small&amp;mobile_iframe=true&amp;appId=7257940238&amp;width=69&amp;height=20" style="border:none;overflow:hidden" width="69"></iframe>
+<!-- Twitter -->
+<a class="twitter-share-button" data-show-count="false" href="https://twitter.com/share">Tweet</a><script async="" charset="utf-8" src="//platform.twitter.com/widgets.js"></script>
+<div class="headerElement"><input checked="" id="startupsCheckbox" onclick="rerender()" type="checkbox"/><label for="startupsCheckbox" title="Startups"><img class="icon" src="images/startupWhite.png"/>Everything else</label></div>
+<div class="headerElement"><input checked="" id="unicornsCheckbox" onclick="rerender()" type="checkbox"/><label for="unicornsCheckbox" title="A unicorn is a startup valued at over $1 billion"><img class="icon" src="images/unicornWhite.png"/>Unicorns</label></div>
+<div class="headerElement"><input checked="" id="publicCheckbox" onclick="rerender()" type="checkbox"/><label for="publicCheckbox" title="A public company is traded on the stock market"><img class="icon" src="images/publicWhite.png"/>Public companies</label></div>
+</div>
+<div id="map"></div>
+<script src="main.js"></script>
+<div id="about" style="margin:16px">
+<h2>Silicon Valley Map <a href="#" style="font-size:10px">Go back to top</a></h2>
+<p>This is a map of tech companies and start-ups in Silicon Valley and San Francisco</p>
+<p>The heatmap intensity corresponds to valuation/market cap of the company.</p>
+<p>
+<a href="https://docs.google.com/forms/d/e/1FAIpQLScAqyq62GuNaqfV8ZAwpIaJLwsjdx_nI54iqj3AzvfZpkx2Eg/viewform">Send feedback</a> |
+	      Created by <a href="https://twitter.com/alecmgo">@alecmgo</a>
+</p>
+<a href="public_transportation.html">Public Transportation Visualization (Beta)</a>
+</div>
+<script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_h6QwuyEmbLJBRAUnD_11HFCogIaNzYc&amp;libraries=visualization&amp;callback=initMap" type="text/javascript">
+</script>
+<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-33582603-8', 'auto');
+	  ga('send', 'pageview');
+	</script>
+</body>
+</html>

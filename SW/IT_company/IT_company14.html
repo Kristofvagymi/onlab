@@ -1,0 +1,272 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="ctl00_Head1"><script type="text/javascript">window.NREUM||(NREUM={});NREUM.info = {"beacon":"bam.nr-data.net","errorBeacon":"bam.nr-data.net","licenseKey":"bd7328a091","applicationID":"85743426","transactionName":"YwMHZxFXCBIEBkUKClpJJGAzGQkUFwZeDhVVCBwcB1MAABAJRU0ERxYd","queueTime":0,"applicationTime":1,"agent":"","atts":""}</script><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={licenseKey:"bd7328a091",applicationID:"85743426"};window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var i=n[t]={exports:{}};e[t][0].call(i.exports,function(n){var i=e[t][1][n];return r(i||n)},i,i.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var i=0;i<t.length;i++)r(t[i]);return r}({1:[function(e,n,t){function r(){}function i(e,n,t){return function(){return o(e,[u.now()].concat(f(arguments)),n?null:this,t),n?void 0:this}}var o=e("handle"),a=e(4),f=e(5),c=e("ee").get("tracer"),u=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],l="api-",d=l+"ixn-";a(p,function(e,n){s[n]=i(l+n,!0,"api")}),s.addPageAction=i(l+"addPageAction",!0),s.setCurrentRouteName=i(l+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,i="function"==typeof n;return o(d+"tracer",[u.now(),e,t],r),function(){if(c.emit((i?"":"no-")+"fn-start",[u.now(),r,i],t),i)try{return n.apply(this,arguments)}catch(e){throw c.emit("fn-err",[arguments,this,e],t),e}finally{c.emit("fn-end",[u.now()],t)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=i(d+n)}),newrelic.noticeError=function(e,n){"string"==typeof e&&(e=new Error(e)),o("err",[e,u.now(),!1,n])}},{}],2:[function(e,n,t){function r(e,n){var t=e.getEntries();t.forEach(function(e){"first-paint"===e.name?c("timing",["fp",Math.floor(e.startTime)]):"first-contentful-paint"===e.name&&c("timing",["fcp",Math.floor(e.startTime)])})}function i(e,n){var t=e.getEntries();t.length>0&&c("lcp",[t[t.length-1]])}function o(e){if(e instanceof s&&!l){var n,t=Math.round(e.timeStamp);n=t>1e12?Date.now()-t:u.now()-t,l=!0,c("timing",["fi",t,{type:e.type,fid:n}])}}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var a,f,c=e("handle"),u=e("loader"),s=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){a=new PerformanceObserver(r),f=new PerformanceObserver(i);try{a.observe({entryTypes:["paint"]}),f.observe({entryTypes:["largest-contentful-paint"]})}catch(p){}}if("addEventListener"in document){var l=!1,d=["click","keydown","mousedown","pointerdown","touchstart"];d.forEach(function(e){document.addEventListener(e,o,!1)})}}},{}],3:[function(e,n,t){function r(e,n){if(!i)return!1;if(e!==i)return!1;if(!n)return!0;if(!o)return!1;for(var t=o.split("."),r=n.split("."),a=0;a<r.length;a++)if(r[a]!==t[a])return!1;return!0}var i=null,o=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var f=navigator.userAgent,c=f.match(a);c&&f.indexOf("Chrome")===-1&&f.indexOf("Chromium")===-1&&(i="Safari",o=c[1])}n.exports={agent:i,version:o,match:r}},{}],4:[function(e,n,t){function r(e,n){var t=[],r="",o=0;for(r in e)i.call(e,r)&&(t[o]=n(r,e[r]),o+=1);return t}var i=Object.prototype.hasOwnProperty;n.exports=r},{}],5:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,i=t-n||0,o=Array(i<0?0:i);++r<i;)o[r]=e[n+r];return o}n.exports=r},{}],6:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function i(e){function n(e){return e&&e instanceof r?e:e?c(e,f,o):o()}function t(t,r,i,o){if(!l.aborted||o){e&&e(t,r,i);for(var a=n(i),f=v(t),c=f.length,u=0;u<c;u++)f[u].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function d(e,n){h[e]=v(e).concat(n)}function m(e,n){var t=h[e];if(t)for(var r=0;r<t.length;r++)t[r]===n&&t.splice(r,1)}function v(e){return h[e]||[]}function g(e){return p[e]=p[e]||i(t)}function w(e,n){u(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var h={},y={},b={on:d,addEventListener:d,removeEventListener:m,emit:t,get:g,listeners:v,context:n,buffer:w,abort:a,aborted:!1};return b}function o(){return new r}function a(){(s.api||s.feature)&&(l.aborted=!0,s=l.backlog={})}var f="nr@context",c=e("gos"),u=e(4),s={},p={},l=n.exports=i();l.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(i.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(o){}return e[n]=r,r}var i=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){i.buffer([e],r),i.emit(e,n,t)}var i=e("ee").get("handle");n.exports=r,r.ee=i},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,o,function(){return i++})}var i=1,o="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!x++){var e=E.info=NREUM.info,n=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();u(y,function(n,t){e[n]||(e[n]=t)}),c("mark",["onload",a()+E.offset],null,"api");var t=d.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function i(){"complete"===d.readyState&&o()}function o(){c("mark",["domContent",a()+E.offset],null,"api")}function a(){return O.exists&&performance.now?Math.round(performance.now()):(f=Math.max((new Date).getTime(),f))-E.offset}var f=(new Date).getTime(),c=e("handle"),u=e(4),s=e("ee"),p=e(3),l=window,d=l.document,m="addEventListener",v="attachEvent",g=l.XMLHttpRequest,w=g&&g.prototype;NREUM.o={ST:setTimeout,SI:l.setImmediate,CT:clearTimeout,XHR:g,REQ:l.Request,EV:l.Event,PR:l.Promise,MO:l.MutationObserver};var h=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1167.min.js"},b=g&&w&&w[m]&&!/CriOS/.test(navigator.userAgent),E=n.exports={offset:f,now:a,origin:h,features:{},xhrWrappable:b,userAgent:p};e(1),e(2),d[m]?(d[m]("DOMContentLoaded",o,!1),l[m]("load",r,!1)):(d[v]("onreadystatechange",i),l[v]("onload",r)),c("mark",["firstbyte",f],null,"api");var x=0,O=e(6)},{}],"wrap-function":[function(e,n,t){function r(e){return!(e&&e instanceof Function&&e.apply&&!e[a])}var i=e("ee"),o=e(5),a="nr@original",f=Object.prototype.hasOwnProperty,c=!1;n.exports=function(e,n){function t(e,n,t,i){function nrWrapper(){var r,a,f,c;try{a=this,r=o(arguments),f="function"==typeof t?t(r,a):t||{}}catch(u){l([u,"",[r,a,i],f])}s(n+"start",[r,a,i],f);try{return c=e.apply(a,r)}catch(p){throw s(n+"err",[r,a,p],f),p}finally{s(n+"end",[r,a,c],f)}}return r(e)?e:(n||(n=""),nrWrapper[a]=e,p(e,nrWrapper),nrWrapper)}function u(e,n,i,o){i||(i="");var a,f,c,u="-"===i.charAt(0);for(c=0;c<n.length;c++)f=n[c],a=e[f],r(a)||(e[f]=t(a,u?f+i:i,o,f))}function s(t,r,i){if(!c||n){var o=c;c=!0;try{e.emit(t,r,i,n)}catch(a){l([a,t,r,i])}c=o}}function p(e,n){if(Object.defineProperty&&Object.keys)try{var t=Object.keys(e);return t.forEach(function(t){Object.defineProperty(n,t,{get:function(){return e[t]},set:function(n){return e[t]=n,n}})}),n}catch(r){l([r])}for(var i in e)f.call(e,i)&&(n[i]=e[i]);return n}function l(n){try{e.emit("internal-error",n)}catch(t){}}return e||(e=i),t.inPlace=u,t.flag=a,t}},{}]},{},["loader"]);</script><link href="http://www.relatedcalifornia.com/favicon.ico" rel="shortcut icon" type="image/x-icon"/><link href="/css/blueprint.css" rel="stylesheet" type="text/css"/><link href="/css/relatedMain-style.css" media="screen" rel="stylesheet" type="text/css"/><link href="/css/thickBox.css" rel="stylesheet" type="text/css"/><link href="/css/LightBoxHolder.css" rel="Stylesheet" type="text/css"/><link href="/css/relatedOurCompany-style.css" media="screen" rel="stylesheet" type="text/css"/><link href="/css/SEO.css" rel="stylesheet" type="text/css"/><link href="/css/ContextualModules.css" rel="stylesheet" type="text/css"/><link href="/css/relatedOurCompany-style-print.css" media="print" rel="stylesheet" type="text/css"/><link href="/css/relatedFonts.css" rel="stylesheet" type="text/css"/><link href="/css/header.css" rel="stylesheet" type="text/css"/>
+<script src="/scripts/jquery/jquery-1.7.2.min.js" type="text/javascript"></script>
+<link href="/css/CMCarousel.css" rel="stylesheet" type="text/css"/>
+<script src="/scripts/jcarousel.js" type="text/javascript"></script>
+<script type="text/javascript">
+        var UrlResidentCircle = "";// "http://www.relatedcalifornia.com";
+        var UrlAjax = "http://www.relatedcalifornia.com" + "scripts/ajax.aspx";        
+    </script>
+<script src="/scripts/relatedMain.js" type="text/javascript"></script>
+<script src="/scripts/validation.js" type="text/javascript"></script>
+<script src="https://ssl.google-analytics.com/ga.js" type="text/javascript"></script>
+<script src="/scripts/thickbox.js" type="text/javascript"></script>
+<script src="/scripts/AjaxFunctions.js" type="text/javascript"></script>
+<script src="/scripts/swfobject2.js" type="text/javascript"></script>
+<script src="/scripts/FindAHomeHelper.js" type="text/javascript"></script>
+<script src="/scripts/SearchBuddyHelper.js" type="text/javascript"></script>
+<script src="/scripts/customScrollBar.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-5418992-63']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+<link href="/css/gridBanner.css" rel="stylesheet" type="text/css"/>
+<title>Related California</title>
+<meta content="Related California is the standard for excellence in real estate development, finance, management and advisory services, offering luxury apartment rentals and for sale condominiums in manhattan, new york city, boston, los angeles, san francisco, chicago, aspen, snowmass, florida, china and the middle east." name="description"/>
+</head>
+<body>
+<form action="./" id="aspnetForm" method="post">
+<div class="aspNetHidden">
+<input id="__EVENTTARGET" name="__EVENTTARGET" type="hidden" value=""/>
+<input id="__EVENTARGUMENT" name="__EVENTARGUMENT" type="hidden" value=""/>
+<input id="__VIEWSTATE" name="__VIEWSTATE" type="hidden" value="/wEPDwUKMTgwMjc4MDAzNQ9kFgJmD2QWBAIBD2QWBAIBDxYCHgRUZXh0BWQ8bGluayByZWw9InNob3J0Y3V0IGljb24iIGhyZWY9Imh0dHA6Ly93d3cucmVsYXRlZGNhbGlmb3JuaWEuY29tL2Zhdmljb24uaWNvIiB0eXBlPSJpbWFnZS94LWljb24iIC8+ZAIND2QWBAIBDxYCHwAFITx0aXRsZT5SZWxhdGVkIENhbGlmb3JuaWE8L3RpdGxlPmQCAw8WAh8ABdkCPG1ldGEgbmFtZT0iZGVzY3JpcHRpb24iIGNvbnRlbnQ9IlJlbGF0ZWQgQ2FsaWZvcm5pYSBpcyB0aGUgc3RhbmRhcmQgZm9yIGV4Y2VsbGVuY2UgaW4gcmVhbCBlc3RhdGUgZGV2ZWxvcG1lbnQsIGZpbmFuY2UsIG1hbmFnZW1lbnQgYW5kIGFkdmlzb3J5IHNlcnZpY2VzLCBvZmZlcmluZyBsdXh1cnkgYXBhcnRtZW50IHJlbnRhbHMgYW5kIGZvciBzYWxlIGNvbmRvbWluaXVtcyBpbiBtYW5oYXR0YW4sIG5ldyB5b3JrIGNpdHksIGJvc3RvbiwgbG9zIGFuZ2VsZXMsIHNhbiBmcmFuY2lzY28sIGNoaWNhZ28sIGFzcGVuLCBzbm93bWFzcywgZmxvcmlkYSwgY2hpbmEgYW5kIHRoZSBtaWRkbGUgZWFzdC4iIC8+ZAIDD2QWBgICD2QWBgIBD2QWAgIBD2QWAgIBDxYCHgtfIUl0ZW1Db3VudAICFgRmD2QWAgIBDw8WCB8ABRJSZWxhdGVkIENhbGlmb3JuaWEeC05hdmlnYXRlVXJsBRgvb3VyY29tcGFueS9kZWZhdWx0LmFzcHgeBlRhcmdldAUFX3NlbGYeB1Rvb2xUaXAFElJlbGF0ZWQgQ2FsaWZvcm5pYWRkAgEPZBYCAgEPDxYIHwAFEVJlbGF0ZWQgQ29ycG9yYXRlHwIFF2h0dHA6Ly93d3cucmVsYXRlZC5jb20vHwMFBl9ibGFuax8EBRFSZWxhdGVkIENvcnBvcmF0ZWRkAgMPDxYEHwQFElJlbGF0ZWQgQ2FsaWZvcm5pYR8CBSBodHRwOi8vd3d3LnJlbGF0ZWRjYWxpZm9ybmlhLmNvbWQWAmYPDxYEHghJbWFnZVVybAUkL2ltYWdlcy9SZWxhdGVkQ2FsaWZvcm5pYS1oZWFkZXIuZ2lmHg1BbHRlcm5hdGVUZXh0BRJSZWxhdGVkIENhbGlmb3JuaWEWBB4Fd2lkdGgFAzI1NR4GaGVpZ2h0BQIzMmQCBQ8WAh8BAgYWDGYPZBYCAgEPFgIeBWNsYXNzZRYCZg8VAh4vb3VyY29tcGFueS9jb3Jwb3JhdGVpbmZvLmFzcHgLT1VSIENPTVBBTllkAgEPZBYCAgEPFgIfCWUWAmYPFQIfL291cmNvbXBhbnkvb3VydGVhbW9wdGlvbmIuYXNweAhPVVIgVEVBTWQCAg9kFgICAQ8WAh8JZRYCZg8VAhovb3VyY29tcGFueS9wb3J0Zm9saW8uYXNweAlQT1JURk9MSU9kAgMPZBYCAgEPFgIfCWUWAmYPFQIeL291cmNvbXBhbnkvaW5kZXZlbG9wbWVudC5hc3B4DklOIERFVkVMT1BNRU5UZAIED2QWAgIBDxYCHwllFgJmDxUCGi9vdXJjb21wYW55L2ludGhlbmV3cy5hc3B4DE5FV1MgJiBQUkVTU2QCBQ9kFgICAQ8WAh8JZRYCZg8VAhovb3VyY29tcGFueS9jb250YWN0dXMuYXNweApDT05UQUNUIFVTZAIDD2QWAgIBD2QWBAIBDw8WBB4IQ3NzQ2xhc3MFCmdyaWRCYW5uZXIeBF8hU0ICAhYCHgVzdHlsZQUNaGVpZ2h0OjY3N3B4OxYCAgEPFgIfAQIFFgpmD2QWAgIBDw8WBB8KBRtyb3cxIHJvd3NwYW4yIGNvbDIgY29sc3BhbjIfCwICFgIfDAUVdG9wOjBweDtoZWlnaHQ6NDQ4cHg7FggCAQ8PFgQfBQVwaHR0cDovL2NvbnRlbnQucmVsYXRlZGNhbGlmb3JuaWEuY29tL3NpdGVzL0NhbGlmb3JuaWEvSW1hZ2VzMi9DYWxpZm9ybmlhLUxhbmRpbmdQYWdlL1NhbnRhQ2xhcmFhZXJpYWw3OTB4NDQ4LmpwZx8GBQEgFgQfBwUDNzkwHwgFAzQ0OGQCAw8PFgIeB1Zpc2libGVoZGQCBQ8WAh8NaGQCBw8WAh8MBQ1oZWlnaHQ6NDQ4cHg7FgoCAQ8WAh4JaW5uZXJodG1sBSY8aDI+PHA+4oCLUmVsYXRlZCBTYW50YSBDbGFyYTwvcD48L2gyPmQCAw8WBB8OBQk8aDQ+PC9oND4fDWhkAgUPFgQfDgXeAjxoND48cD7igIs8L3A+PHA+JiMxNjA7PC9wPjxwPiYjMTYwOzwvcD48cD5SZWxhdGVkIENhbGlmb3JuaWEgdGFrZXMgcHJpZGUgaW4gY3JlYXRpbmcgcHJlbWllciBtdWx0aWZhbWlseSBhbmQgbWl4ZWQtdXNlIGRldmVsb3BtZW50IGNvbW11bml0aWVzIGJhY2tlZCBieSB0aGUgbmF0aW9uJ3MgbW9zdCBwcm9taW5lbnQgcHJpdmF0ZWx5IGhlbGQgcmVhbCBlc3RhdGUgZmlybS4mIzE2MDsgV2l0aCBvdXIgZXhwZXJ0aXNlIGluIGZpbmFuY2luZywgY29uc3RydWN0aW9uIGFuZCBzdXN0YWluYWJpbGl0eSwgd2UgYXJlIGJ1aWxkaW5nIG5laWdoYm9yaG9vZHMgZm9yIENhbGlmb3JuaWEncyBmdXR1cmUuPC9wPjwvaDQ+HwwFDWRpc3BsYXk6bm9uZTtkAgcPDxYIHwoFBGxpbmsfAgVPaHR0cDovL3d3dy5yZWxhdGVkY2FsaWZvcm5pYS5jb20vb3VyY29tcGFueS9wcm9wZXJ0aWVzLzE5Ny9yZWxhdGVkLXNhbnRhLWNsYXJhLx8DBQZfYmxhbmsfCwICZGQCCQ8PFgIfDWhkZAIBD2QWAgIBDw8WBB8KBRtyb3cxIHJvd3NwYW4yIGNvbDEgY29sc3BhbjEfCwICFgIfDAUVdG9wOjBweDtoZWlnaHQ6NDQ4cHg7FggCAQ8PFgIfDWhkZAIDDw8WAh8NaGRkAgUPFgQfBwUDMzkwHwgFAzQ0OGQCBw8WBB8MBQ1oZWlnaHQ6NDQ4cHg7Hw1oFgoCAQ8WAh8NaGQCAw8WAh8NaGQCBQ8WAh8NaGQCBw8PFgIfDWhkZAIJDw8WAh8NaGRkAgIPZBYCAgEPDxYEHwoFG3JvdzMgcm93c3BhbjEgY29sMSBjb2xzcGFuMR8LAgIWAh8MBRd0b3A6NDU4cHg7aGVpZ2h0OjIxOXB4OxYIAgEPDxYEHwUFbmh0dHA6Ly9jb250ZW50LnJlbGF0ZWRjYWxpZm9ybmlhLmNvbS9zaXRlcy9DYWxpZm9ybmlhL0ltYWdlczIvQ2FsaWZvcm5pYS1MYW5kaW5nUGFnZS9GaXZlODhleHRlcmlvcjM5MHgyMTYuanBnHwYFASAWBB8HBQMzOTAfCAUDMjE5ZAIDDw8WAh8NaGRkAgUPFgIfDWhkAgcPFgIfDAUNaGVpZ2h0OjIxOXB4OxYKAgEPFgIfDgUxPGgyPjxwPkZpdmUgODgmIzE2MDs8L3A+PHA+U2FuIEZyYW5jaXNjbzwvcD48L2gyPmQCAw8WBB8OBQk8aDQ+PC9oND4fDWhkAgUPFgYfDgUJPGg0PjwvaDQ+HwwFDWRpc3BsYXk6bm9uZTsfDWhkAgcPDxYIHwoFBGxpbmsfAgVDaHR0cDovL3d3dy5yZWxhdGVkY2FsaWZvcm5pYS5jb20vb3VyY29tcGFueS9wcm9wZXJ0aWVzLzIxNC9maXZlLTg4Lx8DBQZfYmxhbmsfCwICZGQCCQ8PFgIfDWhkZAIDD2QWAgIBDw8WBB8KBRtyb3czIHJvd3NwYW4xIGNvbDIgY29sc3BhbjEfCwICFgIfDAUXdG9wOjQ1OHB4O2hlaWdodDoyMTlweDsWCAIBDw8WBB8FBZEBaHR0cDovL2NvbnRlbnQucmVsYXRlZGNhbGlmb3JuaWEuY29tL3NpdGVzL0NhbGlmb3JuaWEvSW1hZ2VzMi9DYWxpZm9ybmlhLVByb3BlcnR5Q3V0U2hlZXRzL1RoZSUyMEdyYW5kL1RoZS1HcmFuZC0tLUR1c2stVmlld05ldzM5MHgyMTZGZWIyMDE5LmpwZx8GBQEgFgQfBwUDMzkwHwgFAzIxOWQCAw8PFgIfDWhkZAIFDxYCHw1oZAIHDxYCHwwFDWhlaWdodDoyMTlweDsWCgIBDxYCHw4FUzxoMj48cD5PZmZpY2lhbCYjMTYwO0dyb3VuZGJyZWFraW5nIDIuMTEuMTk8L3A+PHA+RG93bnRvd24gTG9zIEFuZ2VsZXM8YnI+PC9wPjwvaDI+ZAIDDxYEHw4FCTxoND48L2g0Ph8NaGQCBQ8WBh8OBQk8aDQ+PC9oND4fDAUNZGlzcGxheTpub25lOx8NaGQCBw8PFggfCgUEbGluax8CBTAvb3VyY29tcGFueS9wcm9wZXJ0aWVzLzIwNC9ncmFuZC1hdmVudWUtcHJvamVjdC8fAwUGX2JsYW5rHwsCAmRkAgkPDxYCHw1oZGQCBA9kFgICAQ8PFgQfCgUbcm93MyByb3dzcGFuMSBjb2wzIGNvbHNwYW4xHwsCAhYCHwwFF3RvcDo0NThweDtoZWlnaHQ6MjE5cHg7FggCAQ8PFgQfBQWAAWh0dHA6Ly9jb250ZW50LnJlbGF0ZWRjYWxpZm9ybmlhLmNvbS9zaXRlcy9DYWxpZm9ybmlhL0ltYWdlczIvQ2FsaWZvcm5pYS1Qcm9wZXJ0eUN1dFNoZWV0cy9Hb29kd2lsbC9GaWZ0eTUwc3Vuc2V0Y3JvcDM5MHgyMTYuanBnHwYFASAWBB8HBQMzOTAfCAUDMjE5ZAIDDw8WAh8NaGRkAgUPFgIfDWhkAgcPFgIfDAUNaGVpZ2h0OjIxOXB4OxYKAgEPFgIfDgU+PGgyPjxwPkZpZnRlZW4gRmlmdHkgTm93IE9wZW48L3A+PHA+U2FuIEZyYW5jaXNjbzxicj48L3A+PC9oMj5kAgMPFgQfDgUJPGg0PjwvaDQ+Hw1oZAIFDxYGHw4FCTxoND48L2g0Ph8MBQ1kaXNwbGF5Om5vbmU7Hw1oZAIHDw8WCB8KBQRsaW5rHwIFRGh0dHA6Ly93d3cucmVsYXRlZGNhbGlmb3JuaWEuY29tL291cmNvbXBhbnkvcHJvcGVydGllcy8yMDMvZ29vZHdpbGwvHwNlHwsCAmRkAgkPDxYCHw1oZGQCAw8PFgQfCgUJZ3JpZE1vZGFsHwsCAhYCHwwFDWRpc3BsYXk6bm9uZTtkAgUPZBYEAgEPFgIfAQIIFhBmD2QWAgIBD2QWAgIBDw8WDB8KBQxmb290ZXJOYXZUeHQfAAULUkVMQVRFRC5DT00fAgUWaHR0cDovL3d3dy5yZWxhdGVkLmNvbR8DBQZfYmxhbmsfBAULUkVMQVRFRC5DT00fCwICZGQCAQ9kFgICAQ9kFgICAQ8PFgwfCgUMZm9vdGVyTmF2VHh0HwAFF1JFTEFURUQgQ0FMSUZPUk5JQSBIT01FHwIFGC9vdXJjb21wYW55L2RlZmF1bHQuYXNweB8DBQVfc2VsZh8EBRdSRUxBVEVEIENBTElGT1JOSUEgSE9NRR8LAgJkZAICD2QWAgIBD2QWAgIBDw8WDB8KBQxmb290ZXJOYXZUeHQfAAUMTkVXUyAmIFBSRVNTHwIFGi9vdXJjb21wYW55L2ludGhlbmV3cy5hc3B4HwMFBV9zZWxmHwQFDE5FV1MgJiBQUkVTUx8LAgJkZAIDD2QWAgIBD2QWAgIBDw8WDB8KBQxmb290ZXJOYXZUeHQfAAUKQ09OVEFDVCBVUx8CBRovb3VyY29tcGFueS9jb250YWN0dXMuYXNweB8DBQVfc2VsZh8EBQpDT05UQUNUIFVTHwsCAmRkAgQPZBYCAgEPFgIfCQUFc3BhY2UWAgIBDw8WAh8NaGRkAgUPZBYCAgEPZBYCAgEPDxYMHwoFDGZvb3Rlck5hdlR4dB8ABQxUZXJtcyBvZiBVc2UfAgUhaHR0cHM6Ly93d3cucmVsYXRlZC5jb20vdGVybXMtdXNlHwMFBl9ibGFuax8EBQxUZXJtcyBvZiBVc2UfCwICZGQCBg9kFgICAQ9kFgICAQ8PFgwfCgUMZm9vdGVyTmF2VHh0HwAFDlByaXZhY3kgUG9saWN5HwIFJmh0dHBzOi8vd3d3LnJlbGF0ZWQuY29tL3ByaXZhY3ktcG9saWN5HwMFBl9ibGFuax8EBQ5Qcml2YWN5IFBvbGljeR8LAgJkZAIHD2QWAgIBD2QWAgIBDw8WDB8KBQxmb290ZXJOYXZUeHQfAAULRG8gTm90IFNlbGwfAgWBAWh0dHBzOi8vcHJpdmFjeXBvcnRhbC1jZG4ub25ldHJ1c3QuY29tL2RzYXJ3ZWJmb3JtLzY3OWQ3NDc3LTdlMDMtNGQxZC04NTk2LTRiYTA1YzdhNDBmOS8zM2FmMWI3Ny0wNDFhLTQyNjUtYTU5OC02ZDMwODM1ZjE2NGQuaHRtbB8DBQZfYmxhbmsfBAULRG8gTm90IFNlbGwfCwICZGQCAw8WBB4FdGl0bGUFH05KQ1JXRkUxNSAtIDA3LzE3LzIwMTkgMDU6MjQ6NTAfDgUeJmNvcHk7IDIwMjAgUkVMQVRFRCBDQUxJRk9STklBZGQnmEs+Gn6XRLFhmVHDEF4mursqqA=="/>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+<script src="/WebResource.axd?d=ZZR1B160VYdzpUV88xQedvnJC2FB59aFAIK1VF8vVkD1f_H_jbABHmZAUQcLJw-3Wmg3-aBp4iUoUd4yEuGithvFxtw1&amp;t=637100682046795651" type="text/javascript"></script>
+<script src="/scripts/gridBanner.js" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+$(document).ready(function () {    gridBannerInit('ctl00_ContentPlaceHolderMainContent_gridBanner_GridContainer', new Array(0,0,0,0,0,0));});function setVideoSrc() {$('.gridPanelVideo').attr('src', 'https://player.vimeo.com/video/345111624?title=)&transparent=0&portrait=0&byline=0(player.vimeo.com)');$('.gridPanelVideo').attr('frameBorder', 0);}if(window.addEventListener)window.addEventListener('load', setVideoSrc, false);else if (window.attachEvent)window.attachEvent('onload', setVideoSrc);else window.onload = setVideoSrc;//]]>
+</script>
+<script src="/ScriptResource.axd?d=4FbF-uvTWOMqoTMF3Suf2y9lLrKCcoMWNcO5ZESVcc9TU7IGoujcSBADQojBAgPrpqgIBB3A9YrSYuzUZ1p_pCccu8Bacada0GFfAmTvboNAQDApOkl-bZMLYtloTBDqPCjoJxGkWyn59k8m0c3hqm6TSJcb0IpYV6ZBosTHIURUuCMj0&amp;t=ffffffffecf19baa" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+if (typeof(Sys) === 'undefined') throw new Error('ASP.NET Ajax client-side framework failed to load.');
+//]]>
+</script>
+<script src="/ScriptResource.axd?d=R1xgyTZqHloJuZl_iAlwfWMEbJkeRxQvuppXu6k6IOskfh75rXTX6RgDYvJU0yBU0HMXaEhIVqyW543L2L21EDphrVdU4eiTvbX7aPhtuJ8MpTawhDkSIsT230ySMkraDWQFU8O7Df96txOOqAIrlZzz4ccm6BOP4TAiGOG-CY13ZJSjdGbcOUnwFAejEMKsE6BdRg2&amp;t=ffffffffecf19baa" type="text/javascript"></script>
+<div class="aspNetHidden">
+<input id="__VIEWSTATEGENERATOR" name="__VIEWSTATEGENERATOR" type="hidden" value="62C22771"/>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$smMain', 'aspnetForm', [], [], [], 90, 'ctl00');
+//]]>
+</script>
+<div style="position: relative; width: 1200px;margin:0 auto;">
+<div class="SeoDiv">
+</div>
+<div class="container" style="position: relative;">
+<div id="headerHolder">
+<div class="HeaderMainRow">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<div class="relatedLogoMidwest" id="ctl00_ucHeader1_relatedLogo">
+<div class="relatedLogoMidwestMenu" id="ctl00_ucHeader1_relatedLogoMenu">
+<ul>
+<li><a href="/ourcompany/default.aspx" id="ctl00_ucHeader1_repeaterLogo_ctl00_hoverMenuLink" target="_self" title="Related California">Related California</a></li>
+<li><a href="http://www.related.com/" id="ctl00_ucHeader1_repeaterLogo_ctl01_hoverMenuLink" target="_blank" title="Related Corporate">Related Corporate</a></li>
+</ul>
+</div>
+<div class="relatedLogoMidwestImage">
+<img id="ctl00_ucHeader1_relatedLogoImage" src=""/>
+</div>
+</div>
+</td>
+<td>
+<a href="http://www.relatedcalifornia.com" id="ctl00_ucHeader1_relatedTitleLink" title="Related California"><img alt="Related California" class="relatedTitle" height="32" id="ctl00_ucHeader1_relatedTitleImage" src="/images/RelatedCalifornia-header.gif" width="255"/></a>
+</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="HeaderTopRow">
+<ul>
+<li class="" id="ctl00_ucHeader1_headerNavigationMenu_ctl00_topNavItem">
+<div class="tabDivMenu">
+<a href="/ourcompany/corporateinfo.aspx"><span> </span><span>OUR COMPANY</span><span> </span></a>
+</div>
+</li>
+<li class="" id="ctl00_ucHeader1_headerNavigationMenu_ctl01_topNavItem">
+<div class="tabDivMenu">
+<a href="/ourcompany/ourteamoptionb.aspx"><span> </span><span>OUR TEAM</span><span> </span></a>
+</div>
+</li>
+<li class="" id="ctl00_ucHeader1_headerNavigationMenu_ctl02_topNavItem">
+<div class="tabDivMenu">
+<a href="/ourcompany/portfolio.aspx"><span> </span><span>PORTFOLIO</span><span> </span></a>
+</div>
+</li>
+<li class="" id="ctl00_ucHeader1_headerNavigationMenu_ctl03_topNavItem">
+<div class="tabDivMenu">
+<a href="/ourcompany/indevelopment.aspx"><span> </span><span>IN DEVELOPMENT</span><span> </span></a>
+</div>
+</li>
+<li class="" id="ctl00_ucHeader1_headerNavigationMenu_ctl04_topNavItem">
+<div class="tabDivMenu">
+<a href="/ourcompany/inthenews.aspx"><span> </span><span>NEWS &amp; PRESS</span><span> </span></a>
+</div>
+</li>
+<li class="" id="ctl00_ucHeader1_headerNavigationMenu_ctl05_topNavItem">
+<div class="tabDivMenu">
+<a href="/ourcompany/contactus.aspx"><span> </span><span>CONTACT US</span><span> </span></a>
+</div>
+</li>
+</ul>
+<div id="search">
+<div class="searchIcon">
+</div>
+<input class="searchfield" id="txtSearch" name="searchRelated" onfocus="if(this.value==this.defaultValue) this.value=''; return false;" style="font-size: 10px" tabindex="1" type="text" value="SEARCH RELATED CALIFORNIA"/>
+</div>
+<div id="goSearch" style="display: none">
+<div class="SearchBuddyWrapper" id="goSearchChild">
+</div>
+</div>
+</div>
+<div style="clear: both;">
+</div>
+</div>
+<div id="gridContent">
+<div style="position: relative">
+<div class="gridBanner" id="ctl00_ContentPlaceHolderMainContent_gridBanner_GridContainer" style="height:677px;">
+<div class="row1 rowspan2 col2 colspan2" id="ctl00_ContentPlaceHolderMainContent_gridBanner_Repeater1_ctl00_Panel1" style="top:0px;height:448px;">
+<img alt=" " height="448" id="ctl00_ContentPlaceHolderMainContent_gridBanner_Repeater1_ctl00_Image1" src="http://content.relatedcalifornia.com/sites/California/Images2/California-LandingPage/SantaClaraaerial790x448.jpg" width="790"/>
+<div class="boxText" id="ctl00_ContentPlaceHolderMainContent_gridBanner_Repeater1_ctl00_BoxText" style="height:448px;">
+<div class="gridBannerTitle" id="ctl00_ContentPlaceHolderMainContent_gridBanner_Repeater1_ctl00_Title"><h2><p>​Related Santa Clara</p></h2></div>
+<div class="rolloverText" id="ctl00_ContentPlaceHolderMainContent_gridBanner_Repeater1_ctl00_RolloverText" style="display:none;"><h4><p>​</p><p> </p><p> </p><p>Related California takes pride in creating premier multifamily and mixed-use development communities backed by the nation's most prominent privately held real estate firm.  With our expertise in financing, construction and sustainability, we are building neighborhoods for California's future.</p></h4></div>
+<a class="link" href="http://www.relatedcalifornia.com/ourcompany/properties/197/related-santa-clara/" id="ctl00_ContentPlaceHolderMainContent_gridBanner_Repeater1_ctl00_Link" target="_blank">More</a>
+</div>
+</div>
+<div class="row1 rowspan2 col1 colspan1" id="ctl00_ContentPlaceHolderMainContent_gridBanner_Repeater1_ctl01_Panel1" style="top:0px;height:448px;">
+<iframe class="gridPanelVideo" height="448" id="ctl00_ContentPlaceHolderMainContent_gridBanner_Repeater1_ctl01_Video" width="390"></iframe>
+</div>
+<div class="row3 rowspan1 col1 colspan1" id="ctl00_ContentPlaceHolderMainContent_gridBanner_Repeater1_ctl02_Panel1" style="top:458px;height:219px;">
+<img alt=" " height="219" id="ctl00_ContentPlaceHolderMainContent_gridBanner_Repeater1_ctl02_Image1" src="http://content.relatedcalifornia.com/sites/California/Images2/California-LandingPage/Five88exterior390x216.jpg" width="390"/>
+<div class="boxText" id="ctl00_ContentPlaceHolderMainContent_gridBanner_Repeater1_ctl02_BoxText" style="height:219px;">
+<div class="gridBannerTitle" id="ctl00_ContentPlaceHolderMainContent_gridBanner_Repeater1_ctl02_Title"><h2><p>Five 88 </p><p>San Francisco</p></h2></div>
+<a class="link" href="http://www.relatedcalifornia.com/ourcompany/properties/214/five-88/" id="ctl00_ContentPlaceHolderMainContent_gridBanner_Repeater1_ctl02_Link" target="_blank">More</a>
+</div>
+</div>
+<div class="row3 rowspan1 col2 colspan1" id="ctl00_ContentPlaceHolderMainContent_gridBanner_Repeater1_ctl03_Panel1" style="top:458px;height:219px;">
+<img alt=" " height="219" id="ctl00_ContentPlaceHolderMainContent_gridBanner_Repeater1_ctl03_Image1" src="http://content.relatedcalifornia.com/sites/California/Images2/California-PropertyCutSheets/The%20Grand/The-Grand---Dusk-ViewNew390x216Feb2019.jpg" width="390"/>
+<div class="boxText" id="ctl00_ContentPlaceHolderMainContent_gridBanner_Repeater1_ctl03_BoxText" style="height:219px;">
+<div class="gridBannerTitle" id="ctl00_ContentPlaceHolderMainContent_gridBanner_Repeater1_ctl03_Title"><h2><p>Official Groundbreaking 2.11.19</p><p>Downtown Los Angeles<br/></p></h2></div>
+<a class="link" href="/ourcompany/properties/204/grand-avenue-project/" id="ctl00_ContentPlaceHolderMainContent_gridBanner_Repeater1_ctl03_Link" target="_blank">More</a>
+</div>
+</div>
+<div class="row3 rowspan1 col3 colspan1" id="ctl00_ContentPlaceHolderMainContent_gridBanner_Repeater1_ctl04_Panel1" style="top:458px;height:219px;">
+<img alt=" " height="219" id="ctl00_ContentPlaceHolderMainContent_gridBanner_Repeater1_ctl04_Image1" src="http://content.relatedcalifornia.com/sites/California/Images2/California-PropertyCutSheets/Goodwill/Fifty50sunsetcrop390x216.jpg" width="390"/>
+<div class="boxText" id="ctl00_ContentPlaceHolderMainContent_gridBanner_Repeater1_ctl04_BoxText" style="height:219px;">
+<div class="gridBannerTitle" id="ctl00_ContentPlaceHolderMainContent_gridBanner_Repeater1_ctl04_Title"><h2><p>Fifteen Fifty Now Open</p><p>San Francisco<br/></p></h2></div>
+<a class="link" href="http://www.relatedcalifornia.com/ourcompany/properties/203/goodwill/" id="ctl00_ContentPlaceHolderMainContent_gridBanner_Repeater1_ctl04_Link">More</a>
+</div>
+</div>
+</div>
+<div class="gridModal" id="ctl00_ContentPlaceHolderMainContent_gridBanner_GridModalContainer" style="display:none;">
+<a class="btnLeft" href="">Left</a>
+<a class="btnRight" href="">Right</a>
+<a class="btnClose" href="javascript:GridModalClose();">Close</a>
+<a class="btnLaunch" href=""></a>
+<div class="boxInfo">
+<h2>
+</h2>
+<img alt=" " src="/images/gridBanner/1px-transparent.png"/>
+<h4>
+</h4>
+<div></div>
+</div>
+</div>
+</div>
+</div>
+<div id="bottomMenu">
+</div>
+</div>
+</div>
+<div id="footerContainer" style="height:85px; ">
+<hr class="space"/>
+<div id="fakeFooterGradient">
+</div>
+<div id="footerHolder">
+<div id="footerGradient">
+<img alt=" " src="/images/spacer.gif"/>
+</div>
+<div id="footerNav">
+<table>
+<tr style="vertical-align: bottom">
+<td id="ctl00_ucFooter1_repeaterFooter_ctl00_footerTd">
+<a class="footerNavTxt" href="http://www.related.com" id="ctl00_ucFooter1_repeaterFooter_ctl00_footerLink" target="_blank" title="RELATED.COM">RELATED.COM</a>
+</td>
+<td id="ctl00_ucFooter1_repeaterFooter_ctl01_footerTd">
+<a class="footerNavTxt" href="/ourcompany/default.aspx" id="ctl00_ucFooter1_repeaterFooter_ctl01_footerLink" target="_self" title="RELATED CALIFORNIA HOME">RELATED CALIFORNIA HOME</a>
+</td>
+<td id="ctl00_ucFooter1_repeaterFooter_ctl02_footerTd">
+<a class="footerNavTxt" href="/ourcompany/inthenews.aspx" id="ctl00_ucFooter1_repeaterFooter_ctl02_footerLink" target="_self" title="NEWS &amp; PRESS">NEWS &amp; PRESS</a>
+</td>
+<td id="ctl00_ucFooter1_repeaterFooter_ctl03_footerTd">
+<a class="footerNavTxt" href="/ourcompany/contactus.aspx" id="ctl00_ucFooter1_repeaterFooter_ctl03_footerLink" target="_self" title="CONTACT US">CONTACT US</a>
+</td>
+<td class="space" id="ctl00_ucFooter1_repeaterFooter_ctl04_footerTd">
+</td>
+<td id="ctl00_ucFooter1_repeaterFooter_ctl05_footerTd">
+<a class="footerNavTxt" href="https://www.related.com/terms-use" id="ctl00_ucFooter1_repeaterFooter_ctl05_footerLink" target="_blank" title="Terms of Use">Terms of Use</a>
+</td>
+<td id="ctl00_ucFooter1_repeaterFooter_ctl06_footerTd">
+<a class="footerNavTxt" href="https://www.related.com/privacy-policy" id="ctl00_ucFooter1_repeaterFooter_ctl06_footerLink" target="_blank" title="Privacy Policy">Privacy Policy</a>
+</td>
+<td id="ctl00_ucFooter1_repeaterFooter_ctl07_footerTd">
+<a class="footerNavTxt" href="https://privacyportal-cdn.onetrust.com/dsarwebform/679d7477-7e03-4d1d-8596-4ba05c7a40f9/33af1b77-041a-4265-a598-6d30835f164d.html" id="ctl00_ucFooter1_repeaterFooter_ctl07_footerLink" target="_blank" title="Do Not Sell">Do Not Sell</a>
+</td>
+<td>
+<span class="footerCopyRightTxt" id="ctl00_ucFooter1_footerCopyRightTxt" title="NJCRWFE15 - 07/17/2019 05:24:50">© 2020 RELATED CALIFORNIA</span>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+        try {
+            var pageTracker = _gat._getTracker("UA-5418992-53");
+            pageTracker._trackPageview();
+        } catch (err) { }
+    </script>
+</form>
+<!--[if IE]><script>for(i =0;i<document.images.length;i++){document.images[i].alt='';}</script><![endif]-->
+</body>
+</html>
